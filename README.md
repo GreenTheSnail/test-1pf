@@ -1,6 +1,6 @@
 
 # Exchanging rates
-Project to show exchanging rates from database and actualization them using special link (exam for 1pf.cz).
+Project to show exchanging rates from database and actualizate them using special link (exam for 1pf.cz).
 
 
 
