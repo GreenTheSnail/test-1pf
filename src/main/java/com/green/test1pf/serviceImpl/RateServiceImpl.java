@@ -13,7 +13,7 @@ public class RateServiceImpl implements RateService {
     private final RateRepository repository;
 
     @Autowired
-    public RateServiceImpl(RateRepository repository) {
+    private RateServiceImpl(RateRepository repository) {
         this.repository = repository;
     }
 

@@ -28,20 +28,21 @@ public class RateController {
     private final RateServiceImpl rateService;
 
     @Autowired
-    public RateController(RateServiceImpl rateService) {
+    private RateController(RateServiceImpl rateService) {
         this.rateService = rateService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
 
 
     @GetMapping("/rates")
-    public String rates(@RequestParam boolean useDb, Model model) throws IOException, ParseException {
+    public String rates(@RequestParam boolean useDb, Model model) throws Exception {
         if(useDb){
-            model.addAttribute("rates", rateService.findAll());
+            List<Rate> allFromDb = rateService.findAll();
+            if(allFromDb.isEmpty()){
+                model.addAttribute("message" , "No rates found in database! You can use 'Get actual exchange rates' link to actualize rates in database.");
+                return "error";
+            }
+            model.addAttribute("rates", allFromDb);
             return "rates";
         }
         String s = getRequest(new URL("https://webapi.developers.erstegroup.com/api/csas/public/sandbox/v2/rates/exchangerates?web-api-key=c52a0682-4806-4903-828f-6cc66508329e"));
